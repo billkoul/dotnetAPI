@@ -5,6 +5,8 @@ A simple .NET Core API following the Domain Driven Design Pattern
 
 Dapper is used as ORM.
 
+A RabbitMQ mechanism to push messages to queue is also given.
+
 The infrastructure includes the find, create, update, and delete abstract methods for each model in database. These methods can also be overridden when specific functionality is needed.
 
 This project consists of one model, the upload model, which represents a file.
