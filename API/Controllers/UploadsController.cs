@@ -25,7 +25,7 @@ namespace API.Controllers
         /// Returns all file upload entries
         /// </summary>
 		//[ServiceFilter(typeof(ClientIpCheckActionFilter))]
-		[HttpGet("{gseId}")]
+		[HttpGet("{id}")]
         [Produces("application/json", Type = typeof(List<UploadDto>))]
 		public async Task<IActionResult> Get(int id)
         {
