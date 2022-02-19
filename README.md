@@ -22,7 +22,7 @@ Authentication is also provided through API tokens listed in appsettings.json
 The database assumes a column named 'active' when finding or removing objects for demo purposes instead of actually removing entries.
 
 
-# API calling - Get uploaded file with id 1 from our database
+## API calling - Get uploaded file with id 1 from our database
 Method: Get<br />
 URL: /api/Uploads/1<br />
 content-type: application/json<br />
