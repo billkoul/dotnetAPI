@@ -15,6 +15,7 @@ namespace API.Controllers
 	{
 		private readonly IMediator _mediator;
 		private readonly CustomErrorCodes _ce = new CustomErrorCodes();
+		private readonly IFileUpdateSender fileUpdateSender;
 
 		public UploadsController(IMediator mediator)
 		{
@@ -43,7 +44,10 @@ namespace API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Post([FromBody] CreateUpload query)
 		{
-            var result = await _mediator.Send(query);
+			//send new file details to RabbitMQ queue 
+			await Task.Run(() => fileUpdateSender.SendFile(query)).ConfigureAwait(false);
+
+			var result = await _mediator.Send(query);
 
             return Ok(result);
 		}
