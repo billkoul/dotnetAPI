@@ -12,6 +12,6 @@ namespace API.Config
 {
     public interface IFileUpdateSender
     {
-        Task SendCustomer(CreateUpload pos);
+        Task SendFile(CreateUpload file);
     }
 }
