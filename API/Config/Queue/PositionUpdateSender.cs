@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ using RabbitMQ.Client;
 
 namespace API.Config
 {
-    public class PositionUpdateSender : IPositionUpdateSender
+    public class FileUpdateSender : IFileUpdateSender
     {
         private readonly string _hostname;
         private readonly string _password;
@@ -18,7 +18,7 @@ namespace API.Config
         private readonly string _username;
         private IConnection _connection;
 
-        public PositionUpdateSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
+        public FileUpdateSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
             _queueName = rabbitMqOptions.Value.QueueName;
             _hostname = rabbitMqOptions.Value.Hostname;
@@ -28,7 +28,7 @@ namespace API.Config
             CreateConnection();
         }
 
-        public async Task SendCustomer(CreateUpload file)
+        public async Task SendFile(CreateUpload file)
         {
             if (ConnectionExists())
             {
