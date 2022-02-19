@@ -16,3 +16,14 @@ This project can be easily scaled to meet any needs by following the same logic 
 Swagger is used for documentation. The documentation is produced automatically by following the logic in Uploads controller. Controllers can also be exluded from swagger.
 
 Custom error codes are included and can be extended in Config/CustomErrorCodes.cs
+
+Authentication is also provided through API tokens listed in appsettings.json
+
+The database assumes a column named 'active' when finding or removing objects for demo purposes instead of actually removing entries.
+
+
+# API calling - Get uploaded file with id 1 from our database
+Method: Get<br />
+URL: /api/Uploads/1<br />
+content-type: application/json<br />
+authorization: apitesting
