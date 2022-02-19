@@ -10,7 +10,7 @@ using RabbitMQ.Client;
 
 namespace API.Config
 {
-    public interface IPositionUpdateSender
+    public interface IFileUpdateSender
     {
         Task SendCustomer(CreateUpload pos);
     }
