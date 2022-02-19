@@ -11,13 +11,11 @@ namespace API.Config
     {
         private readonly RequestDelegate _next;
         private readonly List<string> _tokens;
-        private readonly List<string> _trackTokens;
         private readonly List<string> _swaggerTokens;
 
         public AuthenticationToken(RequestDelegate next)
         {
             _tokens = new List<string>();
-            _trackTokens = new List<string>();
             _swaggerTokens = new List<string>();
 
             try
@@ -28,10 +26,7 @@ namespace API.Config
 
                 foreach (var token in jAppSettings["tokens"])
                     _tokens.Add(token["key"].ToString());
-
-                foreach (var token in jAppSettings["trackTokens"])
-                    _trackTokens.Add(token["key"].ToString());
-
+                
                 foreach (var token in jAppSettings["swaggerTokens"])
                     _swaggerTokens.Add(token["key"].ToString());
             }
@@ -46,19 +41,6 @@ namespace API.Config
             
             if (context.Request.Path.Value.Contains("/api/Home"))
                 await _next(context);
-
-
-            //disable for autoPi for debug
-            if (context.Request.Path.Value.ToLower().Contains("/api/acc") ||
-                context.Request.Path.Value.ToLower().Contains("/api/ble") ||
-                context.Request.Path.Value.ToLower().Contains("/api/position") ||
-                context.Request.Path.Value.ToLower().Contains("/api/update") ||
-                context.Request.Path.Value.ToLower().Contains("/api/version") ||
-                context.Request.Path.Value.ToLower().Contains("/api/voltage"))
-            {
-                if (_trackTokens.Contains(token))
-                    await _next(context);
-            }
 
             else if (!context.Request.Path.Value.ToLower().Contains("/api/home") && context.Request.Method.ToLower() == "get")
             {
