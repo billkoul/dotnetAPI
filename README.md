@@ -13,4 +13,6 @@ The infrastructure assumes a connection to Postgres but can be easily modified.
 
 This project can be easily scaled to meet any needs by following the same logic for each model in our Domain.
 
-Swagger is used for documentation.
+Swagger is used for documentation. The documentation is produced automatically by following the logic in Uploads controller. Controllers can also be exluded from swagger.
+
+Custom error codes are included and can be extended in Config/CustomErrorCodes.cs
