@@ -16,7 +16,8 @@ namespace API.Test
             _httpClient = new HttpClient();
         }
 
-        [Fact]
+        /*[Fact]
+        test case for published API
         public async Task GetUploadsEndpoint()
         {
             _httpClient.DefaultRequestHeaders.Add("authorization", "apikeytest");
@@ -25,6 +26,6 @@ namespace API.Test
             var response = await _httpClient.SendAsync(request);
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
+        }*/
     }
 }
