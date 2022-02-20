@@ -15,11 +15,12 @@ namespace API.Controllers
 	{
 		private readonly IMediator _mediator;
 		private readonly CustomErrorCodes _ce = new CustomErrorCodes();
-		private readonly IFileUpdateSender fileUpdateSender;
+		private readonly IFileUpdateSender _fileUpdateSender;
 
-		public UploadsController(IMediator mediator)
+		public UploadsController(IMediator mediator, IFileUpdateSender fileUpdateSender)
 		{
 			_mediator = mediator;
+			_fileUpdateSender = fileUpdateSender;
 		}
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace API.Controllers
 		public async Task<IActionResult> Post([FromBody] CreateUpload query)
 		{
 			//send new file details to RabbitMQ queue 
-			await Task.Run(() => fileUpdateSender.SendFile(query)).ConfigureAwait(false);
+			await Task.Run(() => _fileUpdateSender.SendFile(query)).ConfigureAwait(false);
 
 			var result = await _mediator.Send(query);
 
@@ -53,7 +54,7 @@ namespace API.Controllers
 		}
 
 		/// <summary>
-		/// Removes  file upload entry
+		/// Removes file upload entry
 		/// </summary>
 		[HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
