@@ -6,7 +6,7 @@ using Npgsql;
 
 namespace Infrastructure.Repositories
 {
-	public class UploadRepository : AbstractRepository, IUploadRepository
+	public class UploadRepository : AbstractGeneralRepository, IUploadRepository
     {
 		/// <summary>
 		/// The Database connection string
