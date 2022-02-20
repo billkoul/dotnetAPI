@@ -9,7 +9,7 @@ A RabbitMQ mechanism to push messages to queue is also given.
 
 The infrastructure includes the find, create, update, and delete abstract methods for each model in database. These methods can also be overridden when specific functionality is needed.
 
-This project consists of one model, the upload model, which represents a file.
+This project consists of one model, the upload model, which represents an uploaded file.
 
 The infrastructure assumes a connection to Postgres but can be easily modified.
 
