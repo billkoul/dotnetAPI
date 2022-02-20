@@ -29,3 +29,45 @@ Method: Get<br />
 URL: /api/Uploads/1<br />
 content-type: application/json<br />
 authorization: apitesting
+
+
+To setup a RabbitMQ listener use the following example:<br>
+```C#
+private void InitializeRabbitMqListener()
+{
+    var factory = new ConnectionFactory
+    {
+        HostName = _hostname,
+        UserName = _username,
+        Password = _password
+    };
+
+    _connection = factory.CreateConnection();
+    _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+    _channel = _connection.CreateModel();
+    _channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+} 
+protected override Task ExecuteAsync(CancellationToken stoppingToken)
+{
+    stoppingToken.ThrowIfCancellationRequested();
+
+    var consumer = new EventingBasicConsumer(_channel);
+    consumer.Received += (ch, ea) =>
+    {
+        var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+        var updateFileNameModel = JsonConvert.DeserializeObject<UpdateFileNameModel>(content);
+
+        HandleMessage(UpdateFileNameModel);
+
+        _channel.BasicAck(ea.DeliveryTag, false);
+    };
+    consumer.Shutdown += OnConsumerShutdown;
+    consumer.Registered += OnConsumerRegistered;
+    consumer.Unregistered += OnConsumerUnregistered;
+    consumer.ConsumerCancelled += OnConsumerCancelled;
+
+    _channel.BasicConsume(_queueName, false, consumer);
+
+    return Task.CompletedTask;
+} 
+```
