@@ -61,7 +61,7 @@ namespace API
             services.AddCors();
 
             services.Configure<RabbitMqConfiguration>(Configuration.GetSection("RabbitMq"));
-            services.AddTransient<IPositionUpdateSender, PositionUpdateSender>();
+            services.AddTransient<IFileUpdateSender, FileUpdateSender>();
 
             
             services.AddScoped<IUploadRepository, UploadRepository>(serviceProvider =>
